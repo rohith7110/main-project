@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="dashboard-container">
+    <h2>Admin Dashboard</h2>
+
+    <div class="dashboard-actions">
+        <button onclick="window.location.href='/allocate-resource'">Allocate Resource</button>
+        <button onclick="window.location.href='/view-users'">View Users</button>
+        <button onclick="window.location.href='/manage-resources'">Manage Resources</button>
+    </div>
+
+    <table class="user-table">
+        <thead>
+            <tr>
+                <th>User ID</th>
+                <th>Username</th>
+                <th>Email</th>
+                <th>Status</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>1</td>
+                <td>Kohli</td>
+                <td>kohli18@cricket.com</td>
+                <td><span class="status-badge status-registered">Registered</span></td>
+                <td>
+                    <button onclick="window.location.href='/edit-user/1'">Edit</button>
+                    <button onclick="window.location.href='/delete-user/1'">Delete</button>
+                </td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>Smith</td>
+                <td>smith49@cricket.com</td>
+                <td><span class="status-badge status-unregistered">Unregistered</span></td>
+                <td>
+                    <button onclick="window.location.href='/send-invite/2'">Send Invite</button>
+                    <button onclick="window.location.href='/delete-user/2'">Delete</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+{% endblock %}

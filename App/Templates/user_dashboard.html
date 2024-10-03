@@ -1,0 +1,101 @@
+
+<style>
+    /* Inline CSS for User Dashboard */
+    .dashboard-container {
+        width: 100%;
+        max-width: 1000px;
+        margin: 0 auto;
+        padding: 20px;
+    }
+
+    h2 {
+        text-align: center;
+        margin-bottom: 30px;
+    }
+
+    .resource-table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    .resource-table th, .resource-table td {
+        border: 1px solid #ddd;
+        padding: 8px;
+        text-align: left;
+    }
+
+    .resource-table th {
+        background-color: #f2f2f2;
+    }
+
+    .resource-table tr:nth-child(even) {
+        background-color: #f9f9f9;
+    }
+
+    .resource-table tr:hover {
+        background-color: #ddd;
+    }
+
+    .resource-table th {
+        padding-top: 12px;
+        padding-bottom: 12px;
+        background-color: #007bff;
+        color: white;
+    }
+
+    .download-btn {
+        padding: 6px 12px;
+        background-color: #28a745;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 14px;
+    }
+
+    .download-btn:hover {
+        background-color: #218838;
+    }
+
+    .no-resources {
+        text-align: center;
+        color: #888;
+        font-size: 18px;
+        margin-top: 30px;
+    }
+</style>
+
+<div class="dashboard-container">
+    <h2>Welcome, {{ username }}!</h2>
+
+    {% if resources %}
+    <table class="resource-table">
+        <thead>
+            <tr>
+                <th>Resource ID</th>
+                <th>Resource Name</th>
+                <th>Description</th>
+                <th>Type</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for resource in resources %}
+            <tr>
+                <td>{{ resource.id }}</td>
+                <td>{{ resource.name }}</td>
+                <td>{{ resource.description }}</td>
+                <td>{{ resource.type }}</td>
+                <td>
+                    <a href="{{ url_for('download_resource', resource_id=resource.id) }}">
+                        <button class="download-btn">Download</button>
+                    </a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <p class="no-resources">No resources have been allocated to you yet.</p>
+    {% endif %}
+</div>
