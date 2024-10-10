@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Dashboard</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-5">
+        <h2>User Dashboard</h2>
+        <a href="{{ url_for('logout') }}" class="btn btn-danger">Logout</a>
+        <hr>
+        <h4>Allocated Resources</h4>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Resource Name</th>
+                    <th>File Path</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for resource in resources %}
+                    <tr>
+                        <td>{{ resource[1] }}</td> <!-- Assuming resource_name is the 2nd column -->
+                        <td>{{ resource[2] }}</td> <!-- Assuming file_path is the 3rd column -->
+                        <td>    
+                            <a href="/{{ resource[2] }}" download>{{ resource[2] }}</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

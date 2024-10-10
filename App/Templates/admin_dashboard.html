@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 1000px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            text-align: center;
+        }
+        .btn {
+            padding: 10px 20px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            cursor: pointer;
+            text-decoration: none;
+        }
+        .btn:hover {
+            background-color: #218838;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        table, th, td {
+            border: 1px solid #dddddd;
+        }
+        th, td {
+            padding: 12px;
+            text-align: center;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Admin Dashboard</h1>
+        <a href="{{ url_for('add_user') }}" class="btn">Add User</a>
+        <a href="{{ url_for('crud_resources') }}" class="btn">Manage Resources</a>
+        <a href="{{ url_for('logout') }}" class="btn">Logout</a>
+
+        <h2>Registered Users</h2>
+        <table>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Status</th>
+                <th>Send Invite</th>
+            </tr>
+            {% for user in users %}
+            <tr>
+                <td>{{ user[0] }}</td>
+                <td>{{ user[2] }}</td>
+                <td>{{ user[1] }}</td>
+                <td>{{ user[4] }}</td>
+                <td>
+                    {% if user[4] == 'Unregistered' %}
+                    <a href="{{ url_for('send_invite', user_id=user[0]) }}" class="btn">Send Invite</a>
+                    {% else %}
+                    Registered
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+
+        <h2>Allocated Resources</h2>
+        <table>
+            <tr>
+                <th>Resource ID</th>
+                <th>Name</th>
+                <th>Allocated To</th>
+                <th>File</th>
+            </tr>
+            {% for resource in resources %}
+            <tr>
+                <td>{{ resource[0] }}</td>
+                <td>{{ resource[1] }}</td>
+                <td>{{ resource[3] }}</td>
+                <td>
+                    <a href="/{{ resource[2] }}" download>{{ resource[2] }}</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+</body>
+</html>
